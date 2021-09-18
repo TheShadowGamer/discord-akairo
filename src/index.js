@@ -8,12 +8,6 @@ module.exports = {
     // Commands
     Command: require('./struct/commands/Command'),
     CommandHandler: require('./struct/commands/CommandHandler'),
-    CommandUtil: require('./struct/commands/CommandUtil'),
-    Flag: require('./struct/commands/Flag'),
-
-    // Arguments
-    Argument: require('./struct/commands/arguments/Argument'),
-    TypeResolver: require('./struct/commands/arguments/TypeResolver'),
 
     // Inhibitors
     Inhibitor: require('./struct/inhibitors/Inhibitor'),
@@ -23,11 +17,9 @@ module.exports = {
     Listener: require('./struct/listeners/Listener'),
     ListenerHandler: require('./struct/listeners/ListenerHandler'),
 
-    // Providers
-    Provider: require('./providers/Provider'),
-    SequelizeProvider: require('./providers/SequelizeProvider'),
-    SQLiteProvider: require('./providers/SQLiteProvider'),
-    MongooseProvider: require('./providers/MongooseProvider'),
+    // Buttons
+    Button: require('./struct/buttons/Button'),
+    ButtonHandler: require('./struct/buttons/ButtonHandler'),
 
     // Utilities
     AkairoError: require('./util/AkairoError'),
