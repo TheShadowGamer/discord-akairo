@@ -91,7 +91,7 @@ declare module 'discord-akairo' {
         public collection<K, V>(iterable?: Iterable<[K, V][]>): Collection<K, V>;
         public compareStreaming(oldMember: GuildMember, newMember: GuildMember): number;
         public embed(data?: object): MessageEmbed;
-		public button(data?: object): MessageButton;
+        public button(data?: object): MessageButton;
         public fetchMember(guild: Guild, id: string, cache?: boolean): Promise<GuildMember>;
         public resolveChannel(text: string, channels: Collection<Snowflake, Channel>, caseSensitive?: boolean, wholeWord?: boolean): Channel;
         public resolveChannels(text: string, channels: Collection<Snowflake, Channel>, caseSensitive?: boolean, wholeWord?: boolean): Collection<Snowflake, Channel>;
@@ -285,7 +285,7 @@ declare module 'discord-akairo' {
         public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
     }
 
-	export class Button extends AkairoModule {
+    export class Button extends AkairoModule {
         public constructor(id: string, options?: ButtonOptions)
 
         public category: Category<string, Listener>;
@@ -300,7 +300,7 @@ declare module 'discord-akairo' {
         public remove(): this;
     }
 
-	export class ButtonHandler extends AkairoHandler {
+    export class ButtonHandler extends AkairoHandler {
         public constructor(client: AkairoClient, options: AkairoHandlerOptions);
 
         public categories: Collection<string, Category<string, Listener>>;
@@ -406,7 +406,7 @@ declare module 'discord-akairo' {
         type?: string;
     }
 
-	export interface ButtonOptions extends AkairoModuleOptions {
+    export interface ButtonOptions extends AkairoModuleOptions {
         buttonId: string;
         args: [{id: string, type: string}];
     }
@@ -449,7 +449,7 @@ declare module 'discord-akairo' {
             COOLDOWN: 'cooldown';
             ERROR: 'error';
         };
-		ButtonHandlerEvents: {
+        ButtonHandlerEvents: {
             BUTTON_INVALID: 'buttonInvalid';
         };
         BuiltInReasons: {
