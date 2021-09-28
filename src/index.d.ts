@@ -4,7 +4,7 @@ declare module 'discord-akairo' {
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         User, UserResolvable, GuildMember,
         Channel, Role, Emoji, Guild,
-        PermissionResolvable, Snowflake, CommandInteractionOption
+        PermissionResolvable, Snowflake, ApplicationCommandOptionData
     } from 'discord.js';
 
     import { EventEmitter } from 'events';
@@ -128,12 +128,11 @@ declare module 'discord-akairo' {
         public ignorePermissions?: Snowflake | Snowflake[] | IgnoreCheckPredicate;
         public ownerOnly: boolean;
         public ratelimit: number;
-        public typing: boolean;
         public userPermissions: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
 
         public before(interaction: CommandInteraction): any;
         public condition(interaction: CommandInteraction): boolean;
-        public exec(interaction: CommandInteraction, args: any): any;
+        public exec(interaction: CommandInteraction): any;
         public reload(): this;
         public remove(): this;
     }
@@ -172,7 +171,7 @@ declare module 'discord-akairo' {
         public runPreTypeInhibitors(interaction: CommandInteraction): Promise<boolean>;
         public runPostTypeInhibitors(interaction: CommandInteraction, command: Command): Promise<boolean>;
         public runCooldowns(interaction: CommandInteraction, command: Command): boolean;
-        public runCommand(interaction: CommandInteraction, command: Command, args: any): Promise<void>;
+        public runCommand(interaction: CommandInteraction, command: Command): Promise<void>;
         public useInhibitorHandler(inhibitorHandler: InhibitorHandler): this;
         public useListenerHandler(ListenerHandler: ListenerHandler): this;
         public on(event: 'remove', listener: (command: Command) => any): this;
@@ -355,7 +354,7 @@ declare module 'discord-akairo' {
 
     export interface CommandOptions extends AkairoModuleOptions {
         name: string;
-        args?: CommandInteractionOption[];
+        args?: ApplicationCommandOptionData[];
         before?: BeforeAction;
         channel?: 'guild' | 'dm';
         clientPermissions?: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
@@ -371,7 +370,9 @@ declare module 'discord-akairo' {
         ownerOnly?: boolean;
         ratelimit?: number;
         separator?: string;
-        typing?: boolean;
+        defer?: boolean;
+        deferEphemeral?: boolean;
+        defaultPermission?: boolean;
         userPermissions?: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
         quoted?: boolean;
     }

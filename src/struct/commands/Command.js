@@ -18,6 +18,7 @@ class Command extends AkairoModule {
             editable = true,
             defer = false,
             deferEphemeral = false,
+            defaultPermission = false,
             cooldown = null,
             ratelimit = 1,
             description = '',
@@ -40,7 +41,7 @@ class Command extends AkairoModule {
 
         /**
 		 * The options of the command.
-		 * @type {CommandInteractionOption}
+		 * @type {ApplicationCommandOptionData[]}
 		 */
         this.args = args;
 
@@ -55,6 +56,12 @@ class Command extends AkairoModule {
 		 * @type {boolean}
 		 */
         this.deferEphemeral = Boolean(deferEphemeral);
+
+        /**
+		 * The default permission for the command
+		 * @type {boolean}
+		 */
+        this.defaultPermission = Boolean(defaultPermission);
 
         /**
          * Usable only in this channel type.
@@ -208,7 +215,6 @@ module.exports = Command;
  * @prop {boolean} [quoted=true] - Whether or not to consider quotes.
  * @prop {string} [channel] - Restricts channel to either 'guild' or 'dm'.
  * @prop {boolean} [ownerOnly=false] - Whether or not to allow client owner(s) only.
- * @prop {boolean} [typing=false] - Whether or not to type in channel during execution.
  * @prop {number} [cooldown] - The command cooldown in milliseconds.
  * @prop {number} [ratelimit=1] - Amount of command uses allowed until cooldown.
  * @prop {PermissionResolvable|PermissionResolvable[]|MissingPermissionSupplier} [userPermissions] - Permissions required by the user to run this command.
