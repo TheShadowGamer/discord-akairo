@@ -1,4 +1,4 @@
-const { Collection, MessageAttachment, MessageEmbed, MessageButton, Permissions } = require('discord.js');
+const { Collection, MessageAttachment, MessageEmbed, MessageButton, MessageSelectMenu, MessageActionRow, Permissions } = require('discord.js');
 
 /**
  * Client utilities to help with common tasks.
@@ -387,6 +387,24 @@ class ClientUtil {
      */
     button(data) {
         return new MessageButton(data);
+    }
+
+    /**
+	 * Makes a MessageSelectMenu.
+	 * @param {Object} [data] - Select menu data.
+	 * @returns {MessageSelectMenu}
+	 */
+    select(data) {
+        return new MessageSelectMenu(data);
+    }
+
+    /**
+	 * Makes a MessageActionRow.
+	 * @param {Object} [data] - Action row data.
+	 * @returns {MessageActionRow}
+	 */
+    row(data) {
+        return new MessageActionRow(data);
     }
 
     /**
