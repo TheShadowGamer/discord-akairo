@@ -2,7 +2,7 @@ declare module 'discord-akairo' {
     import {
         BufferResolvable, Client, ClientOptions, Collection, CommandInteraction,
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
-        User, UserResolvable, GuildMember,
+        MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
         Channel, Role, Emoji, Guild,
         PermissionResolvable, Snowflake, ApplicationCommandOptionData
     } from 'discord.js';
@@ -92,6 +92,8 @@ declare module 'discord-akairo' {
         public compareStreaming(oldMember: GuildMember, newMember: GuildMember): number;
         public embed(data?: object): MessageEmbed;
         public button(data?: object): MessageButton;
+        public select(data?: object): MessageSelectMenu;
+        public row(data?: object): MessageActionRow;
         public fetchMember(guild: Guild, id: string, cache?: boolean): Promise<GuildMember>;
         public resolveChannel(text: string, channels: Collection<Snowflake, Channel>, caseSensitive?: boolean, wholeWord?: boolean): Channel;
         public resolveChannels(text: string, channels: Collection<Snowflake, Channel>, caseSensitive?: boolean, wholeWord?: boolean): Collection<Snowflake, Channel>;
