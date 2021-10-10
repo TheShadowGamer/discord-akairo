@@ -142,7 +142,7 @@ class CommandHandler extends AkairoHandler {
         try {
             if (!interaction.isCommand()) return;
             if (this.fetchMembers && interaction.guild && !interaction.member) {
-                await interaction.guild.members.fetch(interaction.author);
+                await interaction.guild.members.fetch(interaction.user);
             }
 
             const command = this.findCommand(interaction.commandName);
@@ -292,10 +292,10 @@ class CommandHandler extends AkairoHandler {
         if (command.userPermissions) {
             const ignorer = command.ignorePermissions || this.ignorePermissions;
             const isIgnored = Array.isArray(ignorer)
-                ? ignorer.includes(interaction.author.id)
+                ? ignorer.includes(interaction.user.id)
                 : typeof ignorer === 'function'
                     ? ignorer(interaction, command)
-                    : interaction.author.id === ignorer;
+                    : interaction.user.id === ignorer;
 
             if (!isIgnored) {
                 if (typeof command.userPermissions === 'function') {
