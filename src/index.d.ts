@@ -113,7 +113,6 @@ declare module 'discord-akairo' {
     export class Command extends AkairoModule {
         public constructor(id: string, options?: CommandOptions);
 
-        public quoted: boolean;
         public category: Category<string, Command>;
         public channel?: string;
         public client: AkairoClient;
@@ -131,6 +130,11 @@ declare module 'discord-akairo' {
         public ownerOnly: boolean;
         public ratelimit: number;
         public userPermissions: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
+        public defer?: boolean;
+        public deferEphemeral?: boolean;
+        public defaultPermission?: boolean;
+		public args?: ApplicationCommandOptionData[]
+		public name: string;
 
         public before(interaction: CommandInteraction): any;
         public condition(interaction: CommandInteraction): boolean;
@@ -372,7 +376,6 @@ declare module 'discord-akairo' {
         optionFlags?: string[];
         ownerOnly?: boolean;
         ratelimit?: number;
-        separator?: string;
         defer?: boolean;
         deferEphemeral?: boolean;
         defaultPermission?: boolean;
