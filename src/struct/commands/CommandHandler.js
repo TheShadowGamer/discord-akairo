@@ -140,20 +140,27 @@ class CommandHandler extends AkairoHandler {
      */
     async handle(interaction) {
         try {
-            if (!interaction.isCommand()) return;
-            if (this.fetchMembers && interaction.guild && !interaction.member) {
-                await interaction.guild.members.fetch(interaction.user);
+            if (!interaction.isCommand() || !interaction.isAutocomplete()) return;
+            if (interaction.isCommand()) {
+                if (this.fetchMembers && interaction.guild && !interaction.member) {
+                    await interaction.guild.members.fetch(interaction.user);
+                }
+
+                const command = this.findCommand(interaction.commandName);
+
+                if (await this.runPreTypeInhibitors(interaction)) {
+                    return false;
+                }
+
+                const ran = await this.handleDirectCommand(interaction, command);
+
+                return ran;
             }
-
-            const command = this.findCommand(interaction.commandName);
-
-            if (await this.runPreTypeInhibitors(interaction)) {
-                return false;
+            if (interaction.isAutocomplete()) {
+                const command = this.findCommand(interaction.commandName);
+                const ran = command.autocomplete(interaction);
+                return ran;
             }
-
-            const ran = await this.handleDirectCommand(interaction, command);
-
-            return ran;
         } catch (err) {
             this.emitError(err, interaction);
             return null;

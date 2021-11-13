@@ -191,6 +191,16 @@ class Command extends AkairoModule {
     }
 
     /**
+	 * Executes the autocomplete for a command.
+	 * @abstract
+	 * @param {AutocompleteInteraction} interaction - AutocompleteInteraction that triggered the autocomplete.
+	 * @returns {any}
+	 */
+    autocomplete() {
+        throw new AkairoError('NOT_IMPLEMENTED', this.constructor.name, 'autocomplete');
+    }
+
+    /**
      * Reloads the command.
      * @method
      * @name Command#reload

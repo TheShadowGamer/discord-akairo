@@ -3,7 +3,7 @@ declare module 'discord-akairo' {
         BufferResolvable, Client, ClientOptions, Collection, CommandInteraction,
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
-        Channel, Role, Emoji, Guild,
+        Channel, Role, Emoji, Guild, AutocompleteInteraction,
         PermissionResolvable, Snowflake, ApplicationCommandOptionData
     } from 'discord.js';
 
@@ -135,6 +135,7 @@ declare module 'discord-akairo' {
         public before(interaction: CommandInteraction): any;
         public condition(interaction: CommandInteraction): boolean;
         public exec(interaction: CommandInteraction): any;
+		public autocomplete?(interaction: AutocompleteInteraction): any;
         public reload(): this;
         public remove(): this;
     }
