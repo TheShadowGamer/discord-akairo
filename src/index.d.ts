@@ -3,7 +3,7 @@ declare module 'discord-akairo' {
         BufferResolvable, Client, ClientOptions, Collection, CommandInteraction,
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
-        Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissionData
+        Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissionData,
         PermissionResolvable, Snowflake, ApplicationCommandOptionData
     } from 'discord.js';
 
