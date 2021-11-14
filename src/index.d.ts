@@ -3,7 +3,7 @@ declare module 'discord-akairo' {
         BufferResolvable, Client, ClientOptions, Collection, CommandInteraction,
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
-        Channel, Role, Emoji, Guild, AutocompleteInteraction,
+        Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissionData
         PermissionResolvable, Snowflake, ApplicationCommandOptionData
     } from 'discord.js';
 
@@ -129,7 +129,7 @@ declare module 'discord-akairo' {
         public ignorePermissions?: Snowflake | Snowflake[] | IgnoreCheckPredicate;
         public ownerOnly: boolean;
         public ratelimit: number;
-        public userPermissions: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
+        public userPermissions: ApplicationCommandPermissionData[] | MissingPermissionSupplier;
         public defer?: boolean;
         public deferEphemeral?: boolean;
         public defaultPermission?: boolean;
@@ -379,7 +379,7 @@ declare module 'discord-akairo' {
         defer?: boolean;
         deferEphemeral?: boolean;
         defaultPermission?: boolean;
-        userPermissions?: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
+        userPermissions?: ApplicationCommandPermissionData[] | MissingPermissionSupplier;
         quoted?: boolean;
     }
 
