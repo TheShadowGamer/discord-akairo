@@ -140,7 +140,7 @@ class CommandHandler extends AkairoHandler {
      */
     async handle(interaction) {
         try {
-            if (!interaction.isCommand() || !interaction.isAutocomplete()) return;
+            if (!interaction.isCommand() && !interaction.isAutocomplete()) return;
             if (interaction.isCommand()) {
                 if (this.fetchMembers && interaction.guild && !interaction.member) {
                     await interaction.guild.members.fetch(interaction.user);
