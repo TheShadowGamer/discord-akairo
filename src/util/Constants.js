@@ -17,6 +17,9 @@ module.exports = {
     ButtonHandlerEvents: {
         BUTTON_INVALID: 'buttonInvalid'
     },
+    SelectHandlerEvents: {
+        SELECT_INVALID: 'selectInvalid'
+    },
     BuiltInReasons: {
         CLIENT: 'client',
         BOT: 'bot',

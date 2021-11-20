@@ -2,32 +2,32 @@ const AkairoError = require('../../util/AkairoError');
 const AkairoModule = require('../AkairoModule');
 
 /**
- * Represents a Button.
- * @param {string} id - Button ID.
- * @param {ButtonOptions} [options={}] - Options for the Button.
+ * Represents a Select.
+ * @param {string} id - Select ID.
+ * @param {SelectOptions} [options={}] - Options for the Select.
  * @extends {AkairoModule}
  */
-class Button extends AkairoModule {
+class Select extends AkairoModule {
     constructor(id, {
         category,
         args,
-        buttonId
+        selectId
     } = {}) {
         super(id, { category });
 
         /**
-         * The ID of this button.
-         * @name ButtonHandler#id
+         * The ID of this select.
+         * @name SelectHandler#id
          * @type {string}
          */
 
         /**
-         * The button handler.
-         * @name ButtonHandler#handler
-         * @type {ButtonHandler}
+         * The sutton handler.
+         * @name SelectHandler#handler
+         * @type {SelectHandler}
          */
 
-        this.buttonId = buttonId;
+        this.selectId = selectId;
         this.args = values => {
             const res = this.client.util.collection();
             let i = 0;
@@ -39,7 +39,7 @@ class Button extends AkairoModule {
     }
 
     /**
-     * Executes the button.
+     * Executes the select.
      * @abstract
      * @param {...args} [args] - Arguments.
      * @returns {any}
@@ -49,25 +49,25 @@ class Button extends AkairoModule {
     }
 
     /**
-     * Reloads the button.
+     * Reloads the Select.
      * @method
-     * @name Button#reload
-     * @returns {Button}
+     * @name Select#reload
+     * @returns {Select}
      */
 
     /**
-     * Removes the Button.
+     * Removes the Select.
      * @method
-     * @name Button#remove
-     * @returns {Button}
+     * @name Select#remove
+     * @returns {Select}
      */
 }
 
-module.exports = Button;
+module.exports = Select;
 
 /**
- * Options to use for button execution behavior.
+ * Options to use for select execution behavior.
  * Also includes properties from AkairoModuleOptions.
- * @typedef {AkairoModuleOptions} ButtonOptions
- * @prop {string} buttonId - The custom id of the button to listen to.
+ * @typedef {AkairoModuleOptions} SelectOptions
+ * @prop {string} selectId - The custom id of the select to listen to.
  */

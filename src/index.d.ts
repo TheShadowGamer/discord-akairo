@@ -329,6 +329,44 @@ declare module 'discord-akairo' {
         public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
     }
 
+	export class Select extends AkairoModule {
+        public constructor(id: string, options?: SelectOptions)
+
+        public category: Category<string, Listener>;
+        public client: AkairoClient;
+        public selectId: string;
+        public args: [];
+        public filepath: string;
+        public handler: SelectHandler;
+
+        public exec(...args: any[]): any;
+        public reload(): this;
+        public remove(): this;
+    }
+
+	export class SelectHandler extends AkairoHandler {
+        public constructor(client: AkairoClient, options: AkairoHandlerOptions);
+
+        public categories: Collection<string, Category<string, Listener>>;
+        public classToHandle: typeof Select;
+        public client: AkairoClient;
+        public directory: string;
+        public modules: Collection<string, Listener>;
+
+        public deregister(listener: Listener): void;
+        public findCategory(name: string): Category<string, Listener>;
+        public load(thing: string | Function): Listener;
+        public loadAll(directory?: string, filter?: LoadPredicate): this;
+        public register(listener: Listener, filepath?: string): void;
+        public reload(id: string): Listener;
+        public reloadAll(): this;
+        public remove(id: string): Listener;
+        public removeAll(): this;
+        public useCommandHandler(commandHandler: CommandHandler): this;
+        public on(event: 'remove', listener: (listener: Listener) => any): this;
+        public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
+    }
+
     export class TypeResolver {
         public constructor(handler: CommandHandler);
 
@@ -415,7 +453,12 @@ declare module 'discord-akairo' {
 
     export interface ButtonOptions extends AkairoModuleOptions {
         buttonId: string;
-        args: [{id: string, type: string}];
+        args: string[];
+    }
+
+	export interface SelectOptions extends AkairoModuleOptions {
+        selectId: string;
+        args: string[];
     }
 
     export type BeforeAction = (interaction: CommandInteraction) => any;
@@ -459,6 +502,9 @@ declare module 'discord-akairo' {
         ButtonHandlerEvents: {
             BUTTON_INVALID: 'buttonInvalid';
         };
+		SelectHandlerEvents: {
+			SELECT_INVALID: 'selectInvalid';
+		};
         BuiltInReasons: {
             CLIENT: 'client';
             BOT: 'bot';

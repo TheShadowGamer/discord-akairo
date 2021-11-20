@@ -1,7 +1,7 @@
 const AkairoError = require('../../util/AkairoError');
 const AkairoHandler = require('../AkairoHandler');
-const { ButtonHandlerEvents: { BUTTON_INVALID } } = require('../../util/Constants');
-const Button = require('./Button');
+const { SelectHandlerEvents: { SELECT_INVALID } } = require('../../util/Constants');
+const Select = require('./Select');
 
 /**
  * Loads listeners and registers them with EventEmitters.
@@ -9,16 +9,16 @@ const Button = require('./Button');
  * @param {AkairoHandlerOptions} options - Options.
  * @extends {AkairoHandler}
  */
-class ButtonHandler extends AkairoHandler {
+class SelectHandler extends AkairoHandler {
     constructor(client, {
         directory,
-        classToHandle = Button,
+        classToHandle = Select,
         extensions = ['.js', '.ts'],
         automateCategories,
         loadFilter
     } = {}) {
-        if (!(classToHandle.prototype instanceof Button || classToHandle === Button)) {
-            throw new AkairoError('INVALID_CLASS_TO_HANDLE', classToHandle.name, Button.name);
+        if (!(classToHandle.prototype instanceof Select || classToHandle === Select)) {
+            throw new AkairoError('INVALID_CLASS_TO_HANDLE', classToHandle.name, Select.name);
         }
 
         super(client, {
@@ -30,14 +30,14 @@ class ButtonHandler extends AkairoHandler {
         });
 
         /**
-         * Directory to button listeners.
-         * @name ButtonHandler#directory
+         * Directory to select listeners.
+         * @name SelectHandler#directory
          * @type {string}
          */
 
         /**
-         * Button listeners loaded, mapped by ID to Button Listener.
-         * @name ButtonHandler#modules
+         * Select listeners loaded, mapped by ID to Select Listener.
+         * @name SelectHandler#modules
          * @type {Collection<string, Listener>}
          */
 
@@ -55,112 +55,112 @@ class ButtonHandler extends AkairoHandler {
 
     /**
      * Registers a module.
-     * @param {Button} button - Module to use.
+     * @param {Select} select - Module to use.
      * @param {string} [filepath] - Filepath of module.
      * @returns {void}
      */
-    register(button, filepath) {
-        super.register(button, filepath);
-        button.exec = button.exec.bind(button);
-        return button;
+    register(select, filepath) {
+        super.register(select, filepath);
+        select.exec = select.exec.bind(select);
+        return select;
     }
 
     /**
      * Deregisters a module.
-     * @param {Button} button - Module to use.
+     * @param {Select} select - Module to use.
      * @returns {void}
      */
-    deregister(button) {
-        super.deregister(button);
+    deregister(select) {
+        super.deregister(select);
     }
 
     setup() {
         this.client.once('ready', () => {
             this.client.on('interactionCreate', i => {
-                if (!i.isButton()) return;
+                if (!i.isSelectMenu()) return;
                 this.handle(i);
             });
         });
     }
 
     /**
-     * Handles a button.
-     * @param {Interaction} interaction - Button to handle.
+     * Handles a select.
+     * @param {Interaction} interaction - Select to handle.
      * @returns {Promise<?boolean>}
      */
     async handle(interaction) {
         try {
             const args = interaction.customId.split('_');
-            const btn = this.modules.find(listener => args[0] === listener.buttonId);
+            const select = this.modules.find(listener => args[0] === listener.selectId);
             args.shift();
-            btn.exec(interaction, await btn.args(args));
+            select.exec(interaction, await select.args(args));
             return true;
         } catch (err) {
-            this.emit(BUTTON_INVALID, interaction);
+            this.emit(SELECT_INVALID, interaction);
             return null;
         }
     }
 
     /**
-     * Loads a Button.
+     * Loads a Select.
      * @method
-     * @name ButtonHandler#load
+     * @name SelectHandler#load
      * @param {string|Listener} thing - Module or path to module.
-     * @returns {Button}
+     * @returns {Select}
      */
 
     /**
-     * Reads all buttons from the directory and loads them.
+     * Reads all selects from the directory and loads them.
      * @method
-     * @name ButtonHandler#loadAll
+     * @name SelectHandler#loadAll
      * @param {string} [directory] - Directory to load from.
      * Defaults to the directory passed in the constructor.
      * @param {LoadPredicate} [filter] - Filter for files, where true means it should be loaded.
-     * @returns {ButtonHandler}
+     * @returns {SelectHandler}
      */
 
     /**
-     * Removes a button.
+     * Removes a select.
      * @method
-     * @name ButtonHandler#remove
-     * @param {string} id - ID of the button.
-     * @returns {Button}
+     * @name SelectHandler#remove
+     * @param {string} id - ID of the select.
+     * @returns {Select}
      */
 
     /**
-     * Removes all buttons.
+     * Removes all selects.
      * @method
-     * @name ButtonHandler#removeAll
-     * @returns {ButtonHandler}
+     * @name SelectHandler#removeAll
+     * @returns {SelectHandler}
      */
 
     /**
-     * Reloads a button.
+     * Reloads a select.
      * @method
-     * @name ButtonHandler#reload
-     * @param {string} id - ID of the button.
-     * @returns {Button}
+     * @name SelectHandler#reload
+     * @param {string} id - ID of the select.
+     * @returns {Select}
      */
 
     /**
-     * Reloads all buttons.
+     * Reloads all Selects.
      * @method
-     * @name ButtonHandler#reloadAll
-     * @returns {ButtonHandler}
+     * @name SelectHandler#reloadAll
+     * @returns {SelectHandler}
      */
 }
 
-module.exports = ButtonHandler;
+module.exports = SelectHandler;
 
 /**
- * Emitted when a button is loaded.
- * @event ButtonHandler#load
- * @param {Button} button - button loaded.
+ * Emitted when a select is loaded.
+ * @event SelectHandler#load
+ * @param {Select} select - select loaded.
  * @param {boolean} isReload - Whether or not this was a reload.
  */
 
 /**
- * Emitted when a button is removed.
- * @event ButtonHandler#remove
- * @param {Button} button - Button removed.
+ * Emitted when a select is removed.
+ * @event SelectHandler#remove
+ * @param {Select} select - Select removed.
  */
