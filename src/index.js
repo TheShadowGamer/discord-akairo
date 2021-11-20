@@ -21,6 +21,10 @@ module.exports = {
     Button: require('./struct/buttons/Button'),
     ButtonHandler: require('./struct/buttons/ButtonHandler'),
 
+    // Selects
+    Select: require('./struct/selects/Select'),
+    SelectHandler: require('./struct/selects/SelectHandler'),
+
     // Utilities
     AkairoError: require('./util/AkairoError'),
     Category: require('./util/Category'),
