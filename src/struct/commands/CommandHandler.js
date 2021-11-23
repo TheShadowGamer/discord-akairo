@@ -21,8 +21,7 @@ class CommandHandler extends AkairoHandler {
         loadFilter,
         fetchMembers = false,
         defaultCooldown = 0,
-        ignoreCooldown = client.ownerID,
-        ignorePermissions = []
+        ignoreCooldown = client.ownerID
     } = {}) {
         if (!(classToHandle.prototype instanceof Command || classToHandle === Command)) {
             throw new AkairoError('INVALID_CLASS_TO_HANDLE', classToHandle.name, Command.name);
@@ -67,12 +66,6 @@ class CommandHandler extends AkairoHandler {
          * @type {Snowflake|Snowflake[]|IgnoreCheckPredicate}
          */
         this.ignoreCooldown = typeof ignoreCooldown === 'function' ? ignoreCooldown.bind(this) : ignoreCooldown;
-
-        /**
-         * ID of user(s) to ignore `userPermissions` checks or a function to ignore.
-         * @type {Snowflake|Snowflake[]|IgnoreCheckPredicate}
-         */
-        this.ignorePermissions = typeof ignorePermissions === 'function' ? ignorePermissions.bind(this) : ignorePermissions;
 
         /**
          * Collection of sets of ongoing argument prompts.
@@ -292,33 +285,6 @@ class CommandHandler extends AkairoHandler {
                 if (missing.length) {
                     this.emit(CommandHandlerEvents.MISSING_PERMISSIONS, interaction, command, 'client', missing);
                     return true;
-                }
-            }
-        }
-
-        if (command.userPermissions) {
-            const ignorer = command.ignorePermissions || this.ignorePermissions;
-            const isIgnored = Array.isArray(ignorer)
-                ? ignorer.includes(interaction.user.id)
-                : typeof ignorer === 'function'
-                    ? ignorer(interaction, command)
-                    : interaction.user.id === ignorer;
-
-            if (!isIgnored) {
-                if (typeof command.userPermissions === 'function') {
-                    let missing = command.userPermissions(interaction);
-                    if (isPromise(missing)) missing = await missing;
-
-                    if (missing != null) {
-                        this.emit(CommandHandlerEvents.MISSING_PERMISSIONS, interaction, command, 'user', missing);
-                        return true;
-                    }
-                } else if (interaction.guild) {
-                    const missing = interaction.channel.permissionsFor(interaction.user).missing(command.userPermissions);
-                    if (missing.length) {
-                        this.emit(CommandHandlerEvents.MISSING_PERMISSIONS, interaction, command, 'user', missing);
-                        return true;
-                    }
                 }
             }
         }
@@ -606,7 +572,6 @@ module.exports = CommandHandler;
  * @prop {number} [defaultCooldown=0] - The default cooldown for commands.
  * @prop {Snowflake|Snowflake[]|IgnoreCheckPredicate} [ignoreCooldown] - ID of user(s) to ignore cooldown or a function to ignore.
  * Defaults to the client owner(s).
- * @prop {Snowflake|Snowflake[]|IgnoreCheckPredicate} [ignorePermissions=[]] - ID of user(s) to ignore `userPermissions` checks or a function to ignore.
  */
 
 /**
