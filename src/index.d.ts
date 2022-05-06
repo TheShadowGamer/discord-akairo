@@ -4,7 +4,7 @@ declare module 'discord-akairo' {
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
         Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissionData,
-        PermissionResolvable, Snowflake, ApplicationCommandOptionData, Modal: djsModal
+        PermissionResolvable, Snowflake, ApplicationCommandOptionData, Modal as djsModal
     } from 'discord.js';
 
     import { EventEmitter } from 'events';
