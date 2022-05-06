@@ -4,7 +4,7 @@ declare module 'discord-akairo' {
         MessageAttachment, MessageEmbed, MessageButton, MessageOptions,
         MessageSelectMenu, MessageActionRow, User, UserResolvable, GuildMember,
         Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissionData,
-        PermissionResolvable, Snowflake, ApplicationCommandOptionData
+        PermissionResolvable, Snowflake, ApplicationCommandOptionData, Modal: djsModal
     } from 'discord.js';
 
     import { EventEmitter } from 'events';
@@ -92,6 +92,7 @@ declare module 'discord-akairo' {
         public compareStreaming(oldMember: GuildMember, newMember: GuildMember): number;
         public embed(data?: object): MessageEmbed;
         public button(data?: object): MessageButton;
+        public modal(data?: object): djsModal;
         public select(data?: object): MessageSelectMenu;
         public row(data?: object): MessageActionRow;
         public fetchMember(guild: Guild, id: string, cache?: boolean): Promise<GuildMember>;
@@ -133,7 +134,7 @@ declare module 'discord-akairo' {
         public defer?: boolean;
         public deferEphemeral?: boolean;
         public defaultPermission?: boolean;
-		public args?: ApplicationCommandOptionData[]
+		public args?: ApplicationCommandOptionData[];
 		public name: string;
 
         public before(interaction: CommandInteraction): any;
@@ -329,6 +330,43 @@ declare module 'discord-akairo' {
         public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
     }
 
+	export class Modal extends AkairoModule {
+        public constructor(id: string, options?: ModalOptions)
+
+        public category: Category<string, Listener>;
+        public client: AkairoClient;
+        public modalId: string;
+        public args: [];
+        public filepath: string;
+        public handler: ModalHandler;
+
+        public exec(...args: any[]): any;
+        public reload(): this;
+        public remove(): this;
+    }
+
+    export class ModalHandler extends AkairoHandler {
+        public constructor(client: AkairoClient, options: AkairoHandlerOptions);
+
+        public categories: Collection<string, Category<string, Listener>>;
+        public classToHandle: typeof djsModal;
+        public client: AkairoClient;
+        public directory: string;
+        public modules: Collection<string, Listener>;
+
+        public deregister(listener: Listener): void;
+        public findCategory(name: string): Category<string, Listener>;
+        public load(thing: string | Function): Listener;
+        public loadAll(directory?: string, filter?: LoadPredicate): this;
+        public register(listener: Listener, filepath?: string): void;
+        public reload(id: string): Listener;
+        public reloadAll(): this;
+        public remove(id: string): Listener;
+        public removeAll(): this;
+        public useCommandHandler(commandHandler: CommandHandler): this;
+        public on(event: 'remove', listener: (listener: Listener) => any): this;
+        public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
+    }
 	export class Select extends AkairoModule {
         public constructor(id: string, options?: SelectOptions)
 
@@ -456,6 +494,11 @@ declare module 'discord-akairo' {
         args: string[];
     }
 
+	export interface ModalOptions extends AkairoModuleOptions {
+        modalId: string;
+        args: string[];
+    }
+
 	export interface SelectOptions extends AkairoModuleOptions {
         selectId: string;
         args: string[];
@@ -501,6 +544,9 @@ declare module 'discord-akairo' {
         };
         ButtonHandlerEvents: {
             BUTTON_INVALID: 'buttonInvalid';
+        };
+		ModalHandlerEvents: {
+            MODAL_INVALID: 'modalInvalid';
         };
 		SelectHandlerEvents: {
 			SELECT_INVALID: 'selectInvalid';

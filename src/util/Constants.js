@@ -17,6 +17,9 @@ module.exports = {
     ButtonHandlerEvents: {
         BUTTON_INVALID: 'buttonInvalid'
     },
+    ModalHandlerEvents: {
+        MODAL_INVALID: 'modalInvalid'
+    },
     SelectHandlerEvents: {
         SELECT_INVALID: 'selectInvalid'
     },

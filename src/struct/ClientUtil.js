@@ -1,4 +1,4 @@
-const { Collection, MessageAttachment, MessageEmbed, MessageButton, MessageSelectMenu, MessageActionRow, Permissions } = require('discord.js');
+const { Collection, MessageAttachment, MessageEmbed, MessageButton, MessageSelectMenu, MessageActionRow, Permissions, Modal } = require('discord.js');
 
 /**
  * Client utilities to help with common tasks.
@@ -387,6 +387,15 @@ class ClientUtil {
      */
     button(data) {
         return new MessageButton(data);
+    }
+
+    /**
+	 * Makes a Modal
+	 * @param {Object} [data] - Modal data.
+	 * @returns {Modal}
+	 */
+    modal(data) {
+        return new Modal(data);
     }
 
     /**
