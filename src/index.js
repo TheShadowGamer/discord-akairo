@@ -21,6 +21,10 @@ module.exports = {
     Button: require('./struct/buttons/Button'),
     ButtonHandler: require('./struct/buttons/ButtonHandler'),
 
+    // Modals
+    Modal: require('./struct/modals/Modal'),
+    ModalHandler: require('./struct/modals/ModalHandler'),
+
     // Selects
     Select: require('./struct/selects/Select'),
     SelectHandler: require('./struct/selects/SelectHandler'),
