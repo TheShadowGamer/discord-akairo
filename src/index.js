@@ -28,7 +28,7 @@ module.exports = {
     // Contexts
 
     Context: require('./struct/context/Context'),
-    ContextHanlder: require('./struct/context/ContextHandler'),
+    ContextHandler: require('./struct/context/ContextHandler'),
 
     // Selects
     Select: require('./struct/selects/Select'),
