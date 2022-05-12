@@ -347,23 +347,23 @@ declare module 'discord-akairo' {
 	export class ContextHandler extends AkairoHandler {
         public constructor(client: AkairoClient, options: AkairoHandlerOptions);
 
-        public categories: Collection<string, Category<string, Listener>>;
+        public categories: Collection<string, Category<string, Context>>;
         public classToHandle: typeof Context;
         public client: AkairoClient;
         public directory: string;
-        public modules: Collection<string, Listener>;
+        public modules: Collection<string, Context>;
 
-        public deregister(listener: Listener): void;
-        public findCategory(name: string): Category<string, Listener>;
-        public load(thing: string | Function): Listener;
+        public deregister(context: Context): void;
+        public findCategory(name: string): Category<string, Context>;
+        public load(thing: string | Function): Context;
         public loadAll(directory?: string, filter?: LoadPredicate): this;
-        public register(listener: Listener, filepath?: string): void;
-        public reload(id: string): Listener;
+        public register(context: Context, filepath?: string): void;
+        public reload(id: string): Context;
         public reloadAll(): this;
-        public remove(id: string): Listener;
+        public remove(id: string): Context;
         public removeAll(): this;
-        public on(event: 'remove', listener: (listener: Listener) => any): this;
-        public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
+        public on(event: 'remove', listener: (context: Context) => any): this;
+        public on(event: 'load', listener: (context: Context, isReload: boolean) => any): this;
     }
 
 	export class Modal extends AkairoModule {
@@ -532,6 +532,7 @@ declare module 'discord-akairo' {
 
 	export interface ContextOptions extends AkairoModuleOptions {
         name: string;
+		type: 'USER' | 'MESSAGE'
     }
 
 	export interface ModalOptions extends AkairoModuleOptions {

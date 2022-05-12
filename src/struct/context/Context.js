@@ -10,7 +10,8 @@ const AkairoModule = require('../AkairoModule');
 class Context extends AkairoModule {
     constructor(id, {
         category,
-        name
+        name,
+        type
     } = {}) {
         super(id, { category });
 
@@ -27,6 +28,8 @@ class Context extends AkairoModule {
          */
 
         this.name = name;
+
+        this.type = type;
     }
 
     /**
