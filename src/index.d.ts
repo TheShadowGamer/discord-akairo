@@ -313,6 +313,7 @@ declare module 'discord-akairo' {
         public category: Category<string, Listener>;
         public client: AkairoClient;
         public name: string;
+		public type: 'USER' | 'MESSAGE'
         public filepath: string;
         public handler: ContextHandler;
 
