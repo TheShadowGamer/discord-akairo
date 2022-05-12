@@ -25,6 +25,11 @@ module.exports = {
     Modal: require('./struct/modals/Modal'),
     ModalHandler: require('./struct/modals/ModalHandler'),
 
+    // Contexts
+
+    Context: require('./struct/context/Context'),
+    ContextHanlder: require('./struct/context/ContextHandler'),
+
     // Selects
     Select: require('./struct/selects/Select'),
     SelectHandler: require('./struct/selects/SelectHandler'),

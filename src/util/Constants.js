@@ -14,6 +14,9 @@ module.exports = {
         COOLDOWN: 'cooldown',
         ERROR: 'error'
     },
+    ContextHandlerEvents: {
+        ERROR: 'error'
+    },
     ButtonHandlerEvents: {
         BUTTON_INVALID: 'buttonInvalid'
     },

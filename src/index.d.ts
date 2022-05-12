@@ -307,6 +307,20 @@ declare module 'discord-akairo' {
         public remove(): this;
     }
 
+	export class Context extends AkairoModule {
+        public constructor(id: string, options?: ContextOptions)
+
+        public category: Category<string, Listener>;
+        public client: AkairoClient;
+        public name: string;
+        public filepath: string;
+        public handler: ContextHandler;
+
+        public exec(...args: any[]): any;
+        public reload(): this;
+        public remove(): this;
+    }
+
     export class ButtonHandler extends AkairoHandler {
         public constructor(client: AkairoClient, options: AkairoHandlerOptions);
 
@@ -326,6 +340,28 @@ declare module 'discord-akairo' {
         public remove(id: string): Listener;
         public removeAll(): this;
         public useCommandHandler(commandHandler: CommandHandler): this;
+        public on(event: 'remove', listener: (listener: Listener) => any): this;
+        public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
+    }
+
+	export class ContextHandler extends AkairoHandler {
+        public constructor(client: AkairoClient, options: AkairoHandlerOptions);
+
+        public categories: Collection<string, Category<string, Listener>>;
+        public classToHandle: typeof Context;
+        public client: AkairoClient;
+        public directory: string;
+        public modules: Collection<string, Listener>;
+
+        public deregister(listener: Listener): void;
+        public findCategory(name: string): Category<string, Listener>;
+        public load(thing: string | Function): Listener;
+        public loadAll(directory?: string, filter?: LoadPredicate): this;
+        public register(listener: Listener, filepath?: string): void;
+        public reload(id: string): Listener;
+        public reloadAll(): this;
+        public remove(id: string): Listener;
+        public removeAll(): this;
         public on(event: 'remove', listener: (listener: Listener) => any): this;
         public on(event: 'load', listener: (listener: Listener, isReload: boolean) => any): this;
     }
@@ -494,6 +530,10 @@ declare module 'discord-akairo' {
         args: string[];
     }
 
+	export interface ContextOptions extends AkairoModuleOptions {
+        name: string;
+    }
+
 	export interface ModalOptions extends AkairoModuleOptions {
         modalId: string;
         args: string[];
@@ -540,6 +580,9 @@ declare module 'discord-akairo' {
             COMMAND_LOCKED: 'commandLocked';
             MISSING_PERMISSIONS: 'missingPermissions';
             COOLDOWN: 'cooldown';
+            ERROR: 'error';
+        };
+		ContextHandlerEvents: {
             ERROR: 'error';
         };
         ButtonHandlerEvents: {
