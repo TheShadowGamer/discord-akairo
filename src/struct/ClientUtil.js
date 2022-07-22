@@ -1,4 +1,4 @@
-const { Collection, MessageAttachment, MessageEmbed, Permissions } = require('discord.js');
+const { Collection, MessageAttachment, MessageEmbed, MessageButton, MessageSelectMenu, MessageActionRow, Permissions, Modal } = require('discord.js');
 
 /**
  * Client utilities to help with common tasks.
@@ -351,8 +351,8 @@ class ClientUtil {
      * @returns {number}
      */
     compareStreaming(oldMember, newMember) {
-        const s1 = oldMember.presence?.activities.find(c => c.type === 'STREAMING');
-        const s2 = newMember.presence?.activities.find(c => c.type === 'STREAMING');
+        const s1 = oldMember.presence.activity && oldMember.presence.activity.type === 'STREAMING';
+        const s2 = newMember.presence.activity && newMember.presence.activity.type === 'STREAMING';
         if (s1 === s2) return 0;
         if (s1) return 1;
         if (s2) return 2;
@@ -378,6 +378,42 @@ class ClientUtil {
      */
     embed(data) {
         return new MessageEmbed(data);
+    }
+
+    /**
+     * Makes a MessageButton.
+     * @param {Object} [data] - Button data.
+     * @returns {MessageButton}
+     */
+    button(data) {
+        return new MessageButton(data);
+    }
+
+    /**
+	 * Makes a Modal
+	 * @param {Object} [data] - Modal data.
+	 * @returns {Modal}
+	 */
+    modal(data) {
+        return new Modal(data);
+    }
+
+    /**
+	 * Makes a MessageSelectMenu.
+	 * @param {Object} [data] - Select menu data.
+	 * @returns {MessageSelectMenu}
+	 */
+    select(data) {
+        return new MessageSelectMenu(data);
+    }
+
+    /**
+	 * Makes a MessageActionRow.
+	 * @param {Object} [data] - Action row data.
+	 * @returns {MessageActionRow}
+	 */
+    row(data) {
+        return new MessageActionRow(data);
     }
 
     /**
