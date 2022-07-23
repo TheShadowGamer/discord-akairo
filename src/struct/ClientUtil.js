@@ -1,4 +1,4 @@
-const { Collection, MessageAttachment, MessageEmbed, MessageButton, MessageSelectMenu, MessageActionRow, Permissions, Modal } = require('discord.js');
+const { Collection, AttachmentBuilder: MessageAttachment, EmbedBuilder: MessageEmbed, ButtonBuilder: MessageButton, SelectMenuBuilder, ActionRowBuilder: MessageActionRow, ModalBuilder: Modal, PermissionsBitField: Permissions } = require('discord.js');
 
 /**
  * Client utilities to help with common tasks.
@@ -399,12 +399,12 @@ class ClientUtil {
     }
 
     /**
-	 * Makes a MessageSelectMenu.
+	 * Makes a SelectMenuBuilder.
 	 * @param {Object} [data] - Select menu data.
-	 * @returns {MessageSelectMenu}
+	 * @returns {SelectMenuBuilder}
 	 */
     select(data) {
-        return new MessageSelectMenu(data);
+        return new SelectMenuBuilder(data);
     }
 
     /**

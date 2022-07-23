@@ -79,7 +79,7 @@ class ContextHandler extends AkairoHandler {
      */
     handle(interaction) {
         try {
-            if (!interaction.isContextMenu()) return;
+            if (!interaction.isContextMenuCommand()) return;
             const context = this.findContext(interaction.commandName);
             this.runContext(interaction, context);
         } catch (err) {

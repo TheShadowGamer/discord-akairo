@@ -2,6 +2,7 @@ const AkairoError = require('../../util/AkairoError');
 const AkairoHandler = require('../AkairoHandler');
 const { ModalHandlerEvents: { BUTTON_INVALID } } = require('../../util/Constants');
 const Modal = require('./Modal');
+const { InteractionType } = require('discord.js');
 
 /**
  * Loads listeners and registers them with EventEmitters.
@@ -77,7 +78,7 @@ class ModalHandler extends AkairoHandler {
     setup() {
         this.client.once('ready', () => {
             this.client.on('interactionCreate', i => {
-                if (!i.isModalSubmit()) return;
+                if (i.type !== InteractionType.ModalSubmit) return;
                 this.handle(i);
             });
         });

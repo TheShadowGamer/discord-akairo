@@ -2,7 +2,7 @@
 const AkairoError = require('../../util/AkairoError');
 const AkairoHandler = require('../AkairoHandler');
 const { BuiltInReasons, CommandHandlerEvents } = require('../../util/Constants');
-const { Collection } = require('discord.js');
+const { Collection, InteractionType } = require('discord.js');
 const Command = require('./Command');
 const { isPromise } = require('../../util/Util');
 
@@ -133,8 +133,8 @@ class CommandHandler extends AkairoHandler {
      */
     async handle(interaction) {
         try {
-            if (!interaction.isCommand() && !interaction.isAutocomplete()) return;
-            if (interaction.isCommand()) {
+            if (interaction.type !== InteractionType.ApplicationCommand && interaction.type !== InteractionType.ApplicationCommandAutocomplete) return;
+            if (interaction === InteractionType.ApplicationCommand) {
                 if (this.fetchMembers && interaction.guild && !interaction.member) {
                     await interaction.guild.members.fetch(interaction.user);
                 }
@@ -149,7 +149,7 @@ class CommandHandler extends AkairoHandler {
 
                 return ran;
             }
-            if (interaction.isAutocomplete()) {
+            if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
                 const command = this.findCommand(interaction.commandName);
                 const ran = command.autocomplete(interaction);
                 return ran;
