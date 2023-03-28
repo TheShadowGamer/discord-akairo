@@ -2,7 +2,7 @@ declare module 'discord-akairo' {
     import {
         BufferResolvable, Client, ClientOptions, Collection, CommandInteraction,
         AttachmentBuilder as MessageAttachment, EmbedBuilder as MessageEmbed, ButtonBuilder as MessageButton, MessageOptions,
-        SelectMenuBuilder, ActionRowBuilder as MessageActionRow, User, UserResolvable, GuildMember,
+        StringSelectMenuBuilder, ActionRowBuilder as MessageActionRow, User, UserResolvable, GuildMember,
         Channel, Role, Emoji, Guild, AutocompleteInteraction, ApplicationCommandPermissions as ApplicationCommandPermissionData,
         PermissionResolvable, Snowflake, ApplicationCommandOptionData, ModalBuilder as djsModal
     } from 'discord.js';
@@ -93,7 +93,7 @@ declare module 'discord-akairo' {
         public embed(data?: object): MessageEmbed;
         public button(data?: object): MessageButton;
         public modal(data?: object): djsModal;
-        public select(data?: object): SelectMenuBuilder;
+        public select(data?: object): StringSelectMenuBuilder;
         public row(data?: object): MessageActionRow;
         public fetchMember(guild: Guild, id: string, cache?: boolean): Promise<GuildMember>;
         public resolveChannel(text: string, channels: Collection<Snowflake, Channel>, caseSensitive?: boolean, wholeWord?: boolean): Channel;
